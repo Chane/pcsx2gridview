@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PCSX2GridView.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="PCSX2GridView.Views.LibraryView">
+
+    <Design.DataContext>
+        <vm:LibraryItemViewModel/>
+    </Design.DataContext>
+
+    <StackPanel Spacing="5" Width="200">
+
+        <TextBlock Text="{Binding GameName}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap"
+                   TextAlignment="Center"
+                   MaxLines="2"
+                   TextTrimming="CharacterEllipsis"
+                   MinHeight="33"
+                   FontWeight="Bold" />
+
+        <Image Width="200" Stretch="Uniform" Source="{Binding Cover}" />
+
+    </StackPanel>
+</UserControl>

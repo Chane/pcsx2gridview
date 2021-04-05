@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCSX2GridView", "PCSX2GridView\PCSX2GridView.csproj", "{44841D1B-98C1-42D7-9B3A-A8E176110199}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCSX2GridView.Backend", "PCSX2GridView.Backend\PCSX2GridView.Backend.csproj", "{68D1E41C-E2AE-4E32-B449-8BDD65EB7CB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCSX2GridView.Backend.Tests", "PCSX2GridView.Backend.Tests\PCSX2GridView.Backend.Tests.csproj", "{346E4DB9-0D3F-49D9-A667-A971D7CDDF0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44841D1B-98C1-42D7-9B3A-A8E176110199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44841D1B-98C1-42D7-9B3A-A8E176110199}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44841D1B-98C1-42D7-9B3A-A8E176110199}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44841D1B-98C1-42D7-9B3A-A8E176110199}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68D1E41C-E2AE-4E32-B449-8BDD65EB7CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68D1E41C-E2AE-4E32-B449-8BDD65EB7CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68D1E41C-E2AE-4E32-B449-8BDD65EB7CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68D1E41C-E2AE-4E32-B449-8BDD65EB7CB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{346E4DB9-0D3F-49D9-A667-A971D7CDDF0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{346E4DB9-0D3F-49D9-A667-A971D7CDDF0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{346E4DB9-0D3F-49D9-A667-A971D7CDDF0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{346E4DB9-0D3F-49D9-A667-A971D7CDDF0A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
