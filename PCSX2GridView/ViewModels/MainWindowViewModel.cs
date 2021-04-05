@@ -46,7 +46,7 @@
                 result.Add(item);
             }
 
-            return result;
+            return result.OrderBy(g => g.GameName);
         }
 
         private async void LoadLibrary()

@@ -1,5 +1,6 @@
 namespace PCSX2GridView.ViewModels
 {
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -10,17 +11,17 @@ namespace PCSX2GridView.ViewModels
     {
         private Bitmap? cover;
 
-        private string gameName;
+        private string? gameName;
 
         public string GameName
         {
-            get => this.gameName;
+            get => this.gameName ?? string.Empty;
             set => this.gameName = value.Split('(').First();
         }
 
-        public string PhysicalPath { get; init; }
+        public string? PhysicalPath { get; init; }
 
-        public string CoverArt { get; init; }
+        public string? CoverArt { get; init; }
 
         public Bitmap? Cover
         {
@@ -38,16 +39,41 @@ namespace PCSX2GridView.ViewModels
             }
         }
 
-        public Stream LoadCoverBitmapAsync()
+        public void OnClickCommand()
+        {
+            var command = $"PCSX2 \"{this.PhysicalPath}\" &";
+            //// Console.WriteLine(command);
+
+            command = command.Replace("\"", "\"\"");
+
+            var proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "/bin/bash",
+                    Arguments = "-c \"" + command + "\"",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                },
+            };
+
+            proc.Start();
+        }
+
+        private Stream? LoadCoverBitmapAsync()
         {
             if (File.Exists(this.CachePath + ".bmp"))
             {
                 return File.OpenRead(this.CachePath + ".bmp");
             }
-            else
+
+            if (this.CoverArt != null)
             {
                 return File.OpenRead(this.CoverArt);
             }
+
+            return null;
         }
     }
 }

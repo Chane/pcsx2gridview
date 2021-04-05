@@ -6,7 +6,7 @@
         xmlns:views="clr-namespace:PCSX2GridView.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="PCSX2GridView.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/ps2.ico"
         Title="PCSX2 Library Browser">
 
     <Design.DataContext>

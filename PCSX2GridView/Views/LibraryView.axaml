@@ -22,7 +22,12 @@
                    MinHeight="33"
                    FontWeight="Bold" />
 
-        <Image Width="200" Stretch="Uniform" Source="{Binding Cover}" />
+        <Button Name="PlayButton" HorizontalAlignment="Center" Width="190" Command="{Binding OnClickCommand}">
+            <Panel>
+                <Image Source="{Binding Cover}" Width="190"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Panel>
+        </Button>
 
     </StackPanel>
 </UserControl>
