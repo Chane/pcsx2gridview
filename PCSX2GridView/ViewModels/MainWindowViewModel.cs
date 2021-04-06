@@ -4,6 +4,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Reactive.Concurrency;
+    using System.Threading.Tasks;
     using Microsoft.Extensions.FileProviders;
     using PCSX2GridView.Backend;
     using ReactiveUI;
@@ -17,7 +18,7 @@
 
         public ObservableCollection<LibraryItemViewModel> Games { get; } = new ();
 
-        private static IEnumerable<LibraryItemViewModel> LoadCached()
+        private static async Task<IEnumerable<LibraryItemViewModel>> LoadCached()
         {
             var result = new List<LibraryItemViewModel>();
 
@@ -32,7 +33,7 @@
 
             var assetService = new ApplicationAssetService(gameMediaService, artService);
 
-            var games = assetService.Fetch();
+            var games = await assetService.Fetch().ConfigureAwait(false);
 
             foreach (var game in games)
             {
@@ -51,7 +52,7 @@
 
         private async void LoadLibrary()
         {
-            var items = LoadCached();
+            var items = await LoadCached().ConfigureAwait(false);
 
             foreach (var item in items)
             {

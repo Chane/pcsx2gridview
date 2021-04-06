@@ -3,6 +3,7 @@ namespace PCSX2GridView.Backend
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class ApplicationAssetService : IApplicationAssetService
     {
@@ -15,12 +16,12 @@ namespace PCSX2GridView.Backend
             this.coverArtService = coverArtService;
         }
 
-        public IList<GameModel> Fetch()
+        public async Task<IList<GameModel>> Fetch()
         {
             var result = new List<GameModel>();
 
-            var games = this.gameMediaService.Fetch();
-            var art = this.coverArtService.Fetch();
+            var games = await this.gameMediaService.Fetch().ConfigureAwait(false);
+            var art = await this.coverArtService.Fetch().ConfigureAwait(false);
             foreach (var game in games)
             {
                 var coverArt = art.FirstOrDefault(

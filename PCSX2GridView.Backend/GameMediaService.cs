@@ -1,6 +1,7 @@
 ﻿namespace PCSX2GridView.Backend
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Microsoft.Extensions.FileProviders;
 
     public class GameMediaService : BaseMediaService, IGameMediaService
@@ -10,7 +11,7 @@
         {
         }
 
-        public override IList<IFileInfo> Fetch()
+        public override Task<IList<IFileInfo>> Fetch()
         {
             return this.FetchMedia("iso");
         }

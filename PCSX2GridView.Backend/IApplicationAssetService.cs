@@ -1,9 +1,10 @@
 namespace PCSX2GridView.Backend
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IApplicationAssetService
     {
-        IList<GameModel> Fetch();
+        Task<IList<GameModel>> Fetch();
     }
 }

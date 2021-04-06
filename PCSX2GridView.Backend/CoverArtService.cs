@@ -1,6 +1,7 @@
 namespace PCSX2GridView.Backend
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Microsoft.Extensions.FileProviders;
 
     public class CoverArtService : BaseMediaService, ICoverArtService
@@ -10,9 +11,10 @@ namespace PCSX2GridView.Backend
         {
         }
 
-        public override IList<IFileInfo> Fetch()
+        public override async Task<IList<IFileInfo>> Fetch()
         {
-            return this.FetchMedia("jpg");
+            return await this.FetchMedia("jpg")
+                .ConfigureAwait(false);
         }
     }
 }
