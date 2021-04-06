@@ -33,7 +33,8 @@ namespace PCSX2GridView.ViewModels
 
         public async Task LoadCoverAsync()
         {
-            await using (var imageStream = this.LoadCoverBitmapAsync())
+            await using var imageStream = this.LoadCoverBitmap();
+            if (imageStream != null)
             {
                 this.Cover = await Task.Run(() => Bitmap.DecodeToWidth(imageStream, 400));
             }
@@ -61,14 +62,14 @@ namespace PCSX2GridView.ViewModels
             proc.Start();
         }
 
-        private Stream? LoadCoverBitmapAsync()
+        private Stream? LoadCoverBitmap()
         {
             if (File.Exists(this.CachePath + ".bmp"))
             {
                 return File.OpenRead(this.CachePath + ".bmp");
             }
 
-            if (this.CoverArt != null)
+            if (!string.IsNullOrWhiteSpace(this.CoverArt))
             {
                 return File.OpenRead(this.CoverArt);
             }

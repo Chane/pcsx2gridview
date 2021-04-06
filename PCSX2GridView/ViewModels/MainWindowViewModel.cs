@@ -41,7 +41,7 @@
                 {
                     GameName = game.FileName,
                     PhysicalPath = $"{rootFilePath}/{game.FileName}",
-                    CoverArt = $"{rootCoverPath}/{game.CoverArt}",
+                    CoverArt = string.IsNullOrEmpty(game.CoverArt) ? string.Empty : $"{rootCoverPath}/{game.CoverArt}",
                 };
 
                 result.Add(item);
