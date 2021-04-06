@@ -42,7 +42,7 @@ namespace PCSX2GridView.ViewModels
 
         public void OnClickCommand()
         {
-            var command = $"PCSX2 \"{this.PhysicalPath}\" &";
+            var command = $"PCSX2 \"{this.PhysicalPath}\" --nogui &";
             //// Console.WriteLine(command);
 
             command = command.Replace("\"", "\"\"");
