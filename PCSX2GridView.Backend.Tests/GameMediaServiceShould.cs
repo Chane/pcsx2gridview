@@ -2,6 +2,7 @@ namespace PCSX2GridView.Backend.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using AutoFixture;
     using Microsoft.Extensions.FileProviders;
     using Moq;
@@ -12,7 +13,7 @@ namespace PCSX2GridView.Backend.Tests
         private readonly Fixture fixture = new Fixture();
 
         [Test]
-        public void Return_Nothing_When_Directory_Contents_Is_Empty()
+        public async Task Return_Nothing_When_Directory_Contents_Is_Empty()
         {
             var directoryContents = new Mock<IDirectoryContents>();
             directoryContents.Setup(m => m.Exists).Returns(false);
@@ -23,13 +24,13 @@ namespace PCSX2GridView.Backend.Tests
 
             var service = new GameMediaService(provider.Object);
 
-            var contents = service.Fetch();
+            var contents = await service.Fetch();
 
             Assert.That(contents.Count, Is.Zero);
         }
 
         [Test]
-        public void Return_Directory_Contents()
+        public async Task Return_Directory_Contents()
         {
             var files = new List<IFileInfo> { this.CreateFile("iso") };
 
@@ -44,13 +45,13 @@ namespace PCSX2GridView.Backend.Tests
 
             var service = new GameMediaService(provider.Object);
 
-            var contents = service.Fetch();
+            var contents = await service.Fetch();
 
             StringAssert.EndsWith(".iso", contents.First().Name);
         }
 
         [Test]
-        public void Return_Just_Games()
+        public async Task Return_Just_Games()
         {
             var files = new List<IFileInfo>
             {
@@ -69,14 +70,14 @@ namespace PCSX2GridView.Backend.Tests
 
             var service = new GameMediaService(provider.Object);
 
-            var contents = service.Fetch();
+            var contents = await service.Fetch();
 
             Assert.That(contents.Count, Is.EqualTo(1));
             StringAssert.EndsWith(".iso", contents.First().Name);
         }
 
         [Test]
-        public void Return_Just_Games_Ignoring_Case()
+        public async Task Return_Just_Games_Ignoring_Case()
         {
             var files = new List<IFileInfo>
             {
@@ -95,7 +96,7 @@ namespace PCSX2GridView.Backend.Tests
 
             var service = new GameMediaService(provider.Object);
 
-            var contents = service.Fetch();
+            var contents = await service.Fetch();
 
             Assert.That(contents.Count, Is.EqualTo(1));
             StringAssert.EndsWith(".ISO", contents.First().Name);

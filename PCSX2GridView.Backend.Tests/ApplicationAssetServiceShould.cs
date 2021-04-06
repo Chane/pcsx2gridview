@@ -2,6 +2,7 @@ namespace PCSX2GridView.Backend.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using AutoFixture;
     using Microsoft.Extensions.FileProviders;
     using Moq;
@@ -15,26 +16,26 @@ namespace PCSX2GridView.Backend.Tests
         private readonly Fixture fixture = new Fixture();
 
         [Test]
-        public void Return_Game_With_No_Cover_If_No_Match_Found()
+        public async Task Return_Game_With_No_Cover_If_No_Match_Found()
         {
             var games = new List<IFileInfo> { this.CreateFile("iso") };
             var art = new List<IFileInfo> { this.CreateFile("jpg") };
 
-            this.gameMediaService.Setup(m => m.Fetch()).Returns(games);
-            this.coverArtService.Setup(m => m.Fetch()).Returns(art);
+            this.gameMediaService.Setup(m => m.Fetch()).ReturnsAsync(games);
+            this.coverArtService.Setup(m => m.Fetch()).ReturnsAsync(art);
 
             var service = this.CreateService();
 
             var expected = new GameModel { FileName = games.First().Name };
 
-            var result = service.Fetch();
+            var result = await service.Fetch();
 
             Assert.That(result.First().FileName, Is.EqualTo(expected.FileName));
             Assert.That(result.First().CoverArt, Is.EqualTo(string.Empty));
         }
 
         [Test]
-        public void Return_Game_With_Cover_If_Match_Found()
+        public async Task Return_Game_With_Cover_If_Match_Found()
         {
             var file = this.CreateFile("iso");
 
@@ -43,8 +44,8 @@ namespace PCSX2GridView.Backend.Tests
             var games = new List<IFileInfo> { file };
             var art = new List<IFileInfo> { artFile.Object };
 
-            this.gameMediaService.Setup(m => m.Fetch()).Returns(games);
-            this.coverArtService.Setup(m => m.Fetch()).Returns(art);
+            this.gameMediaService.Setup(m => m.Fetch()).ReturnsAsync(games);
+            this.coverArtService.Setup(m => m.Fetch()).ReturnsAsync(art);
 
             var service = this.CreateService();
 
@@ -54,14 +55,14 @@ namespace PCSX2GridView.Backend.Tests
                 CoverArt = art.First().Name,
             };
 
-            var result = service.Fetch();
+            var result = await service.Fetch();
 
             Assert.That(result.First().FileName, Is.EqualTo(expected.FileName));
             Assert.That(result.First().CoverArt, Is.EqualTo(expected.CoverArt));
         }
 
         [Test]
-        public void Return_Games_With_Covers_If_Matches_Found()
+        public async Task Return_Games_With_Covers_If_Matches_Found()
         {
             var file = this.CreateFile("iso");
 
@@ -76,12 +77,12 @@ namespace PCSX2GridView.Backend.Tests
             var games = new List<IFileInfo> { file, file2 };
             var art = new List<IFileInfo> { artFile.Object, artFile2.Object };
 
-            this.gameMediaService.Setup(m => m.Fetch()).Returns(games);
-            this.coverArtService.Setup(m => m.Fetch()).Returns(art);
+            this.gameMediaService.Setup(m => m.Fetch()).ReturnsAsync(games);
+            this.coverArtService.Setup(m => m.Fetch()).ReturnsAsync(art);
 
             var service = this.CreateService();
 
-            var result = service.Fetch();
+            var result = await service.Fetch();
 
             var expected = new GameModel
             {
@@ -101,7 +102,7 @@ namespace PCSX2GridView.Backend.Tests
             Assert.That(result.Last().CoverArt, Is.EqualTo(expected2.CoverArt));
         }
 
-        public ApplicationAssetService CreateService()
+        private ApplicationAssetService CreateService()
         {
             return new ApplicationAssetService(this.gameMediaService.Object, this.coverArtService.Object);
         }
