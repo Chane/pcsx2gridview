@@ -12,22 +12,21 @@
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-
-
-    <Panel Margin="40">
-
-        <ItemsControl Margin="0 40 0 0" Items="{Binding Games}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  Name="MyScrollViewer">
+        <ItemsControl Margin="0" Items="{Binding Games}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel />
+                    <WrapPanel Orientation="Horizontal"
+                               Margin="3"
+                               Width="{Binding ElementName=MyScrollViewer, Path=Bounds.Width}" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <views:LibraryView Margin="0 0 20 20" />
+                    <views:LibraryView Margin="0 0 5 5" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </Panel>
+    </ScrollViewer>
 </Window>

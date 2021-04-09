@@ -1,8 +1,5 @@
 namespace PCSX2GridView.Views
 {
-    using System;
-    using System.IO;
-    using System.Linq;
     using Avalonia;
     using Avalonia.Controls;
     using Avalonia.Markup.Xaml;
