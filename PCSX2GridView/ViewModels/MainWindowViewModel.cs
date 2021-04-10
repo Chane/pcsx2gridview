@@ -31,17 +31,10 @@
 
         private string RootCoverPath => $"{this.RootFilePath}/Covers";
 
-            foreach (var game in games)
-            {
-                var item = new LibraryItemViewModel
-                {
-                    GameName = game.FileName,
-                    PhysicalPath = $"{rootFilePath}/{game.FileName}",
-                    CoverArt = string.IsNullOrEmpty(game.CoverArt) ? string.Empty : $"{rootCoverPath}/{game.CoverArt}",
-                };
-
-                result.Add(item);
-            }
+        public void OnClickCommand()
+        {
+            this.LoadLibrary();
+        }
 
         private void Initialize(IGameMediaService gameMediaService, ICoverArtService artService)
         {
@@ -52,6 +45,7 @@
         {
             var items = await this.LoadGames().ConfigureAwait(false);
 
+            this.Games.Clear();
             foreach (var item in items)
             {
                 this.Games.Add(item);

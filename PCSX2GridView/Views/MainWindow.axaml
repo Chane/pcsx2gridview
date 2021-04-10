@@ -12,21 +12,32 @@
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-    <ScrollViewer VerticalScrollBarVisibility="Auto"
-                  Name="MyScrollViewer">
-        <ItemsControl Margin="0" Items="{Binding Games}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"
-                               Margin="3"
-                               Width="{Binding ElementName=MyScrollViewer, Path=Bounds.Width}" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <views:LibraryView Margin="0 0 5 5" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </ScrollViewer>
+    <Grid ColumnDefinitions="*, 150, 50, 25" RowDefinitions="50, *">
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   Text="PSCX2 Game Launcher"
+                   FontSize="40"
+                   VerticalAlignment="Center"
+                   FontWeight="Bold"
+                   FontFamily="CenturyGothic"
+                   Margin="5 0 0 0"></TextBlock>
+        <Button Grid.Row="0" Grid.Column="2" Background="White" Command="{Binding OnClickCommand}" >
+            <Image Source="../Assets/refresh.png" />
+        </Button>
+        <ScrollViewer Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" Name="GridScrollViewer">
+            <ItemsControl Margin="0" Items="{Binding Games}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"
+                                   Margin="3"
+                                   Width="{Binding ElementName=GridScrollViewer, Path=Bounds.Width}" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <views:LibraryView Margin="0 0 5 5" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </Window>
