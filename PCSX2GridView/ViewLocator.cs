@@ -1,10 +1,12 @@
 namespace PCSX2GridView
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using Avalonia.Controls;
     using Avalonia.Controls.Templates;
     using PCSX2GridView.ViewModels;
 
+    [ExcludeFromCodeCoverage(Justification = "Avalonia Scaffolding")]
     public class ViewLocator : IDataTemplate
     {
         public bool SupportsRecycling => false;

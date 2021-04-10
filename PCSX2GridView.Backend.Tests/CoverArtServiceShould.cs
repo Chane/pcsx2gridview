@@ -1,7 +1,9 @@
 namespace PCSX2GridView.Backend.Tests
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
     using AutoFixture;
     using Microsoft.Extensions.FileProviders;
@@ -101,6 +103,39 @@ namespace PCSX2GridView.Backend.Tests
 
             Assert.That(contents.Count, Is.EqualTo(1));
             StringAssert.EndsWith(".JPG", contents.First().Name);
+        }
+
+        [Test]
+        public void Load_Cover_If_Found()
+        {
+            using (var expectedStream = new MemoryStream(Encoding.UTF8.GetBytes("streamedText")))
+            {
+                var file = this.fixture.Create<string>();
+                var fileInfo = new Mock<IFileInfo>();
+                fileInfo.Setup(m => m.CreateReadStream())
+                        .Returns(expectedStream);
+
+                var provider = new Mock<IFileProvider>();
+                provider.Setup(m => m.GetFileInfo(file))
+                        .Returns(fileInfo.Object);
+
+                var service = new CoverArtService(provider.Object);
+                var stream = service.LoadCoverBitmap(file);
+
+                Assert.That(stream, Is.EqualTo(expectedStream));
+            }
+        }
+
+        [TestCase("")]
+        [TestCase(null)]
+        public void Return_Null_If_No_Cover_Found(string coverArt)
+        {
+            var provider = new Mock<IFileProvider>();
+
+            var service = new CoverArtService(provider.Object);
+            var stream = service.LoadCoverBitmap(coverArt);
+
+            Assert.That(stream, Is.Null);
         }
 
         private IFileInfo CreateFile(string extension)

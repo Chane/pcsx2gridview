@@ -15,7 +15,12 @@
 
         public MainWindowViewModel()
         {
-            this.Initialize(new GameMediaService(new PhysicalFileProvider(this.RootFilePath)), new CoverArtService(new PhysicalFileProvider(this.RootCoverPath)));
+            var rootCoverPath = $"{this.RootFilePath}/Covers";
+            this.Initialize(
+                new GameMediaService(
+                    new PhysicalFileProvider(this.RootFilePath)),
+                new CoverArtService(
+                    new PhysicalFileProvider(rootCoverPath)));
             RxApp.MainThreadScheduler.Schedule(this.LoadLibrary);
         }
 
@@ -28,8 +33,6 @@
         public ObservableCollection<LibraryItemViewModel> Games { get; } = new ();
 
         private string RootFilePath => "/home/chane/Games/ROMs/PlayStation2";
-
-        private string RootCoverPath => $"{this.RootFilePath}/Covers";
 
         public void OnClickCommand()
         {
@@ -66,7 +69,8 @@
                 {
                     GameName = game.FileName,
                     PhysicalPath = $"{this.RootFilePath}/{game.FileName}",
-                    CoverArt = string.IsNullOrEmpty(game.CoverArt) ? string.Empty : $"{this.RootCoverPath}/{game.CoverArt}",
+                    CoverArt = game.CoverArt,
+                    AssetService = this.assetService,
                 };
 
                 result.Add(item);

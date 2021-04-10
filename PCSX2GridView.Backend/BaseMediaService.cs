@@ -8,11 +8,11 @@ namespace PCSX2GridView.Backend
 
     public abstract class BaseMediaService
     {
-        private readonly IFileProvider provider;
+        protected readonly IFileProvider Provider;
 
         protected BaseMediaService(IFileProvider provider)
         {
-            this.provider = provider;
+            this.Provider = provider;
         }
 
         public abstract Task<IList<IFileInfo>> Fetch();
@@ -21,7 +21,7 @@ namespace PCSX2GridView.Backend
         {
             var files = new List<IFileInfo>();
 
-            var allFiles = this.provider.GetDirectoryContents(string.Empty);
+            var allFiles = this.Provider.GetDirectoryContents(string.Empty);
 
             if (allFiles.Exists)
             {

@@ -1,8 +1,10 @@
 ﻿namespace PCSX2GridView
 {
+    using System.Diagnostics.CodeAnalysis;
     using Avalonia;
     using Avalonia.ReactiveUI;
 
+    [ExcludeFromCodeCoverage(Justification = "Avalonia Scaffolding")]
     public class Program
     {
         // Initialization code. Don't use any Avalonia, third-party APIs or any

@@ -2,8 +2,8 @@ namespace PCSX2GridView.Backend
 {
     public class GameModel
     {
-        public string FileName { get; set; }
+        public string FileName { get; init; }
 
-        public string CoverArt { get; set; }
+        public string CoverArt { get; init; }
     }
 }

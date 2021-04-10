@@ -2,6 +2,7 @@ namespace PCSX2GridView.Backend
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -37,6 +38,11 @@ namespace PCSX2GridView.Backend
             }
 
             return result;
+        }
+
+        public Stream LoadCoverBitmap(string coverArt)
+        {
+            return this.coverArtService.LoadCoverBitmap(coverArt);
         }
     }
 }

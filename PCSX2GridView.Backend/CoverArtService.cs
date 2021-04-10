@@ -1,6 +1,7 @@
 namespace PCSX2GridView.Backend
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.Threading.Tasks;
     using Microsoft.Extensions.FileProviders;
 
@@ -15,6 +16,23 @@ namespace PCSX2GridView.Backend
         {
             return await this.FetchMedia("jpg")
                 .ConfigureAwait(false);
+        }
+
+        public Stream LoadCoverBitmap(string coverArt)
+        {
+            // private string CachePath => $"./Cache/{this.GameName}";
+            // if (File.Exists(this.CachePath + ".bmp"))
+            // {
+            //     return File.OpenRead(this.CachePath + ".bmp");
+            // }
+            if (!string.IsNullOrWhiteSpace(coverArt))
+            {
+                return this.Provider
+                            .GetFileInfo(coverArt)
+                            .CreateReadStream();
+            }
+
+            return null;
         }
     }
 }
