@@ -92,7 +92,6 @@ namespace PCSX2GridView.Tests.ViewModels
             StringAssert.Contains(art.First().Name, sut.Games.First().CoverArt);
         }
 
-
         private MainWindowViewModel CreateViewModel()
         {
             return new MainWindowViewModel(this.mediaService.Object, this.artService.Object);
